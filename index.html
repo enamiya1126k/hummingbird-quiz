@@ -321,10 +321,53 @@ function finishQuiz(){
 
   const percent = Math.round(score / quiz.length * 100);
 
-  document.getElementById("scoreText").innerHTML =
-    `${staffName}さんの結果<br><br>${score} / ${quiz.length} 問正解<br>総合得点 ${percent}点`;
+  let rank = "🌱 見習いスタッフ";
+  let comment = "まずは素材の基礎から復習しよう！";
 
-  let html = "";
+  if(percent >= 90){
+    rank = "👑 Hummingbirdマイスター";
+    comment = "完璧レベル！スタッフ教育も任せられる！";
+  }else if(percent >= 75){
+    rank = "✨ 天然素材ソムリエ";
+    comment = "かなり良い感じ！接客でも自信を持って説明できる！";
+  }else if(percent >= 60){
+    rank = "🧵 素材アドバイザー";
+    comment = "基礎はOK！あと少しでかなり安定する！";
+  }else if(percent >= 40){
+    rank = "🔰 接客チャレンジャー";
+    comment = "伸びしろあり！解説を見ながら復習しよう！";
+  }
+
+  document.getElementById("scoreText").innerHTML = `
+    ${staffName}さんの結果<br><br>
+    <strong>${score} / ${quiz.length} 問正解</strong><br>
+    総合得点 ${percent}点<br><br>
+
+    <div style="
+      background:#f7f1e8;
+      padding:18px;
+      border-radius:18px;
+      margin:18px 0;
+      font-size:22px;
+      font-weight:bold;
+      color:#2b2118;
+    ">
+      ${rank}
+    </div>
+
+    <div style="
+      background:#fffaf3;
+      border:1px solid #e0d5c6;
+      padding:14px;
+      border-radius:14px;
+      line-height:1.7;
+      color:#7b6a58;
+    ">
+      ${comment}
+    </div>
+  `;
+
+  let html = "<h3 style='text-align:center;'>カテゴリ別スコア</h3>";
 
   Object.keys(categoryStats).forEach(category => {
     const stat = categoryStats[category];
@@ -341,6 +384,7 @@ function finishQuiz(){
 
   document.getElementById("categoryScores").innerHTML = html;
 }
+
 </script>
 
 </body>
