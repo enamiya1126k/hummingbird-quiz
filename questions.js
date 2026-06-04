@@ -3,6 +3,17 @@ const QUIZ_QUESTIONS = [
 {
 category:"素材知識",
 type:"single",
+question:"この花から作られる天然素材は？",
+image:"images/IMG_2392.jpeg",
+choices:["リネン","シルク","ウール","カシミヤ"],
+correct:[0],
+explanation:"これは亜麻（フラックス）の花です。リネンは亜麻の茎から作られる天然素材です。",
+explanationImage:"images/IMG_2392.jpeg"
+},
+
+{
+category:"素材知識",
+type:"single",
 question:"リネンの特徴として正しいものは？",
 choices:["吸湿・放湿性が高い","防水性が高い","化学繊維","革素材"],
 correct:[0],
