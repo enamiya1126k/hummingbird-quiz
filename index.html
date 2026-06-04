@@ -51,6 +51,15 @@ input[type="text"]{
   border-radius:12px;
   background:white;
 }
+.correct{background:#dff3e6;border-color:#6fbf8a;}
+.wrong{background:#ffe2dc;border-color:#d66a5b;}
+.explain{
+  background:#f7f1e8;
+  padding:14px;
+  border-radius:14px;
+  margin-top:16px;
+  line-height:1.7;
+}
 .result{
   font-size:28px;
   font-weight:bold;
@@ -80,7 +89,7 @@ input[type="text"]{
 
 <div id="startScreen">
   <h1>Hummingbird<br>商品知識クイズ</h1>
-  <p class="small">単一選択・複数選択・カテゴリ別スコア対応</p>
+  <p class="small">解説表示・複数回答・カテゴリ別スコア対応</p>
 
   <p>スタッフ名</p>
   <input id="staffName" type="text" placeholder="例：えなみ">
@@ -93,7 +102,7 @@ input[type="text"]{
   <h2 id="questionNumber"></h2>
   <h3 id="questionText"></h3>
   <div id="choices"></div>
-  <button onclick="nextQuestion()">回答する / 次へ</button>
+  <div id="feedback"></div>
 </div>
 
 <div id="resultScreen" class="hidden">
@@ -110,6 +119,7 @@ let current = 0;
 let score = 0;
 let quiz = [];
 let staffName = "";
+let answered = false;
 
 let categoryStats = {};
 
@@ -119,7 +129,6 @@ function shuffle(arr){
 
 function startQuiz(){
   staffName = document.getElementById("staffName").value || "スタッフ";
-
   quiz = shuffle(QUIZ_QUESTIONS).slice(0,10);
 
   categoryStats = {};
@@ -131,12 +140,14 @@ function startQuiz(){
 
   document.getElementById("startScreen").classList.add("hidden");
   document.getElementById("quizScreen").classList.remove("hidden");
-
   showQuestion();
 }
 
 function showQuestion(){
+  answered = false;
   const q = quiz[current];
+
+  document.getElementById("feedback").innerHTML = "";
 
   document.getElementById("categoryLabel").innerHTML =
     `カテゴリ：${q.category}　｜　${q.type === "multiple" ? "複数選択" : "単一選択"}`;
@@ -149,12 +160,10 @@ function showQuestion(){
   const area = document.getElementById("choices");
   area.innerHTML = "";
 
-  const shuffledChoices = q.choices.map((text, index) => {
-    return {
-      text: text,
-      originalIndex: index
-    };
-  });
+  const shuffledChoices = q.choices.map((text, index) => ({
+    text,
+    originalIndex:index
+  }));
 
   shuffle(shuffledChoices).forEach(choice => {
     const label = document.createElement("label");
@@ -170,11 +179,17 @@ function showQuestion(){
 
     area.appendChild(label);
   });
+
+  const answerButton = document.createElement("button");
+  answerButton.innerText = "回答する";
+  answerButton.onclick = checkAnswer;
+  area.appendChild(answerButton);
 }
 
-function nextQuestion(){
-  const q = quiz[current];
+function checkAnswer(){
+  if(answered) return;
 
+  const q = quiz[current];
   let selected = [];
 
   if(q.type === "multiple"){
@@ -186,7 +201,6 @@ function nextQuestion(){
       alert("回答を選んでください");
       return;
     }
-
   }else{
     const checked = document.querySelector("input[type=radio]:checked");
 
@@ -197,6 +211,8 @@ function nextQuestion(){
 
     selected.push(Number(checked.value));
   }
+
+  answered = true;
 
   selected.sort();
   const answer = [...q.correct].sort();
@@ -210,6 +226,32 @@ function nextQuestion(){
     categoryStats[q.category].correct++;
   }
 
+  document.querySelectorAll(".choice").forEach(label => {
+    const input = label.querySelector("input");
+    const value = Number(input.value);
+
+    input.disabled = true;
+
+    if(q.correct.includes(value)){
+      label.classList.add("correct");
+    }
+
+    if(selected.includes(value) && !q.correct.includes(value)){
+      label.classList.add("wrong");
+    }
+  });
+
+  document.getElementById("feedback").innerHTML = `
+    <div class="explain">
+      <strong>${isCorrect ? "正解！" : "不正解！"}</strong><br><br>
+      ${q.explanation || "解説はありません。"}
+      <br><br>
+      <button onclick="nextQuestion()">次へ</button>
+    </div>
+  `;
+}
+
+function nextQuestion(){
   current++;
 
   if(current >= quiz.length){
