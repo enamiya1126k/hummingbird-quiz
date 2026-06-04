@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
+
 <title>Hummingbird商品知識クイズ</title>
 <script src="questions.js"></script>
 
@@ -78,9 +79,29 @@ input[type="text"]{
   border-bottom:1px solid #e0d5c6;
   padding:10px 0;
 }
-.scoreRow:last-child{border-bottom:none;}
-.hidden{display:none;}
-.small{color:#7b6a58;font-size:14px;text-align:center;}
+.scoreRow:last-child{
+  border-bottom:none;
+}
+
+.hidden{
+  display:none;
+}
+
+.small{
+  color:#7b6a58;
+  font-size:14px;
+  text-align:center;
+}
+
+.quizImage,
+.explainImage{
+  width:100%;
+  max-height:350px;
+  object-fit:cover;
+  border-radius:14px;
+  margin:15px 0;
+}
+
 </style>
 </head>
 
@@ -101,6 +122,7 @@ input[type="text"]{
   <p id="categoryLabel" class="small"></p>
   <h2 id="questionNumber"></h2>
   <h3 id="questionText"></h3>
+  <div id="questionImage"></div>
   <div id="choices"></div>
   <div id="feedback"></div>
 </div>
@@ -156,6 +178,19 @@ function showQuestion(){
     `問題 ${current + 1} / ${quiz.length}`;
 
   document.getElementById("questionText").innerHTML = q.question;
+const imageArea =
+document.getElementById("questionImage");
+
+if(q.image){
+  imageArea.innerHTML = `
+    <img
+      src="${q.image}"
+      class="quizImage"
+    >
+  `;
+}else{
+  imageArea.innerHTML = "";
+}
 
   const area = document.getElementById("choices");
   area.innerHTML = "";
@@ -242,13 +277,31 @@ function checkAnswer(){
   });
 
   document.getElementById("feedback").innerHTML = `
-    <div class="explain">
-      <strong>${isCorrect ? "正解！" : "不正解！"}</strong><br><br>
-      ${q.explanation || "解説はありません。"}
-      <br><br>
-      <button onclick="nextQuestion()">次へ</button>
-    </div>
-  `;
+  <div class="explain">
+
+    <strong>
+      ${isCorrect ? "正解！" : "不正解！"}
+    </strong>
+
+    <br><br>
+
+    ${q.explanation || "解説はありません。"}
+
+    ${
+      q.explanationImage
+      ? `<img src="${q.explanationImage}"
+         class="explainImage">`
+      : ""
+    }
+
+    <br><br>
+
+    <button onclick="nextQuestion()">
+      次へ
+    </button>
+
+  </div>
+`;
 }
 
 function nextQuestion(){
