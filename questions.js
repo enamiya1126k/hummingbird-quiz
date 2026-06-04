@@ -1,170 +1,183 @@
 const QUIZ_QUESTIONS = [
-  {
-    category: "素材知識",
-    type: "multi",
-    q: "リネンの特徴として正しいものをすべて選んでください。",
-    choices: [
-      { text: "吸湿性がある", correct: true },
-      { text: "発散性がある", correct: true },
-      { text: "天然素材である", correct: true },
-      { text: "完全防水である", correct: false }
-    ],
-    exp: "リネンは吸湿・発散性があり、さらっとした肌触りを伝えやすい天然素材です。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "素材知識",
-    type: "single",
-    q: "ギザコットンの説明として近いものは？",
-    choices: [
-      { text: "上質なエジプト綿", correct: true },
-      { text: "羊毛の一種", correct: false },
-      { text: "麻の一種", correct: false },
-      { text: "合成皮革", correct: false }
-    ],
-    exp: "ギザコットンは高級綿として、なめらかさ・上質感を伝えやすい素材です。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "素材知識",
-    type: "single",
-    q: "シルク素材の魅力として正しいものは？",
-    choices: [
-      { text: "なめらかな肌触りと上品な光沢", correct: true },
-      { text: "完全防水", correct: false },
-      { text: "紙素材", correct: false },
-      { text: "ゴム素材", correct: false }
-    ],
-    exp: "シルクは肌あたりのやさしさ、光沢感、上質感を伝えやすい素材です。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "素材知識",
-    type: "multi",
-    q: "ウールを夏にも提案できる理由として正しいものを選んでください。",
-    choices: [
-      { text: "吸放湿性がある", correct: true },
-      { text: "においにくさを伝えやすい", correct: true },
-      { text: "冬だけの素材である", correct: false },
-      { text: "水を完全にはじく", correct: false }
-    ],
-    exp: "上質なウールは冬だけでなく、吸放湿性や防臭性を切り口に夏にも提案できます。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "お手入れ",
-    type: "multi",
-    q: "天然素材商品の説明として適切なものをすべて選んでください。",
-    choices: [
-      { text: "素材の良さを伝える", correct: true },
-      { text: "取り扱い注意も伝える", correct: true },
-      { text: "絶対に縮まないと言い切る", correct: false },
-      { text: "乾燥機は必ず推奨と言う", correct: false }
-    ],
-    exp: "天然素材は魅力と注意点をセットで伝えると、信頼感のある接客になります。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "お手入れ",
-    type: "single",
-    q: "洗濯後に靴下が少し縮んだ時の案内として自然なのは？",
-    choices: [
-      { text: "干す前に軽く形を整えるとよい", correct: true },
-      { text: "強くねじるとよい", correct: false },
-      { text: "高温乾燥機にかける", correct: false },
-      { text: "水に浸けっぱなしにする", correct: false }
-    ],
-    exp: "洗濯後に形を整える案内は、天然素材や編み物系の商品で使いやすい説明です。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "接客知識",
-    type: "single",
-    q: "接客の最初の一言として自然なのは？",
-    choices: [
-      { text: "こちら日本製の天然素材で、肌あたりが良いシリーズです", correct: true },
-      { text: "買わないなら触らないでください", correct: false },
-      { text: "それ高いですよ", correct: false },
-      { text: "全部同じです", correct: false }
-    ],
-    exp: "最初に短く価値を伝えると、価格の理由やお店の世界観が伝わりやすくなります。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "接客知識",
-    type: "single",
-    q: "帽子を強く握って触っているお客様への声かけとして自然なのは？",
-    choices: [
-      { text: "繊細な素材なので、よろしければ私がお出ししますね", correct: true },
-      { text: "触らないでください", correct: false },
-      { text: "壊したら買ってください", correct: false },
-      { text: "それ高いですよ", correct: false }
-    ],
-    exp: "注意ではなく、理由＋手伝う姿勢で伝えると角が立ちにくいです。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "接客知識",
-    type: "multi",
-    q: "高価格帯の商品を説明するときに大切なことを選んでください。",
-    choices: [
-      { text: "素材の良さを伝える", correct: true },
-      { text: "作りの丁寧さを伝える", correct: true },
-      { text: "値段だけを強調する", correct: false },
-      { text: "説明せずに置いておく", correct: false }
-    ],
-    exp: "高価格帯の商品は、素材・作り・背景を簡潔に伝えると納得感が出ます。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "海外対応",
-    type: "single",
-    q: "海外のお客様に伝えやすいキーワードは？",
-    choices: [
-      { text: "Made in Japan / Natural material / Quality", correct: true },
-      { text: "Cheap only", correct: false },
-      { text: "No touch only", correct: false },
-      { text: "Same as all", correct: false }
-    ],
-    exp: "海外のお客様には、日本製・天然素材・品質を短く伝えると価値が伝わりやすいです。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "海外対応",
-    type: "single",
-    q: "海外のお客様が商品を見て迷っている時の接客として自然なのは？",
-    choices: [
-      { text: "This is made in Japan. Very soft and comfortable.", correct: true },
-      { text: "No touch.", correct: false },
-      { text: "Buy now.", correct: false },
-      { text: "Expensive.", correct: false }
-    ],
-    exp: "短い英語で素材や着心地を伝えるだけでも、十分に接客のきっかけになります。",
-    image: "",
-    expImage: ""
-  },
-  {
-    category: "画像問題",
-    type: "single",
-    q: "画像つき問題のサンプルです。画像を入れる場合、どこにファイル名を書く？",
-    choices: [
-      { text: "image または expImage に書く", correct: true },
-      { text: "title に書く", correct: false },
-      { text: "score に書く", correct: false },
-      { text: "category に書く", correct: false }
-    ],
-    exp: "問題画像は image、解説画像は expImage に images/linen.jpg のように入れます。",
-    image: "",
-    expImage: ""
-  }
+
+{
+category:"素材知識",
+type:"single",
+question:"リネンの特徴として正しいものは？",
+choices:["吸湿性が高い","防水素材","化学繊維","革素材"],
+correct:[0],
+explanation:"リネンは吸湿性・速乾性に優れ、夏に快適な天然素材です。"
+},
+
+{
+category:"素材知識",
+type:"single",
+question:"シルクの特徴は？",
+choices:["保温性と吸放湿性","完全防水","化学繊維","耐熱素材"],
+correct:[0],
+explanation:"シルクは吸放湿性が高く、一年中快適に使えます。"
+},
+
+{
+category:"素材知識",
+type:"single",
+question:"ウールの特徴は？",
+choices:["吸放湿性が高い","水を吸わない","夏は使えない","人工素材"],
+correct:[0],
+explanation:"ウールは夏でも蒸れにくく天然の温度調整機能があります。"
+},
+
+{
+category:"素材知識",
+type:"multiple",
+question:"天然素材を全て選んでください",
+choices:["リネン","シルク","ポリエステル","ウール"],
+correct:[0,1,3],
+explanation:"ポリエステル以外は天然素材です。"
+},
+
+{
+category:"素材知識",
+type:"single",
+question:"スーピマコットンとは？",
+choices:["超長綿","羊毛","麻","化学繊維"],
+correct:[0],
+explanation:"スーピマコットンは高品質な超長綿です。"
+},
+
+{
+category:"素材知識",
+type:"single",
+question:"ギザコットンはどこの綿？",
+choices:["エジプト","日本","中国","インド"],
+correct:[0],
+explanation:"ギザコットンはエジプト綿として有名です。"
+},
+
+{
+category:"接客知識",
+type:"single",
+question:"最初の声掛けとして適切なのは？",
+choices:["何かお探しですか？","買いますか？","それ高いですよ","急いでください"],
+correct:[0],
+explanation:"自然な会話の入口を作ることが大切です。"
+},
+
+{
+category:"接客知識",
+type:"single",
+question:"素材説明で大切なのは？",
+choices:["お客様の悩みに結びつける","専門用語だけ話す","価格だけ話す","自慢する"],
+correct:[0],
+explanation:"特徴よりメリットを伝えることが重要です。"
+},
+
+{
+category:"接客知識",
+type:"multiple",
+question:"良い接客の要素を選んでください",
+choices:["笑顔","傾聴","押し売り","提案"],
+correct:[0,1,3],
+explanation:"押し売りはNGです。"
+},
+
+{
+category:"接客知識",
+type:"single",
+question:"高価格商品を説明するとき大切なのは？",
+choices:["価値を伝える","値段だけ伝える","急かす","他店を否定する"],
+correct:[0],
+explanation:"価格ではなく価値を伝えましょう。"
+},
+
+{
+category:"接客知識",
+type:"single",
+question:"試着後のお客様への対応は？",
+choices:["感想を聞く","無言","すぐ会計","離れる"],
+correct:[0],
+explanation:"感想を聞いて提案につなげます。"
+},
+
+{
+category:"接客知識",
+type:"single",
+question:"外国人観光客への対応で大切なのは？",
+choices:["シンプルに伝える","早口","専門用語","無視する"],
+correct:[0],
+explanation:"短く分かりやすい説明が効果的です。"
+},
+
+{
+category:"お手入れ",
+type:"single",
+question:"リネン製品で避けたいことは？",
+choices:["乾燥機","陰干し","洗濯","自然乾燥"],
+correct:[0],
+explanation:"縮みや傷みの原因になります。"
+},
+
+{
+category:"お手入れ",
+type:"single",
+question:"シルクのお手入れで適切なのは？",
+choices:["優しく洗う","高温乾燥","漂白","乾燥機"],
+correct:[0],
+explanation:"シルクは非常に繊細です。"
+},
+
+{
+category:"お手入れ",
+type:"single",
+question:"ウール製品の保管で大切なのは？",
+choices:["防虫対策","直射日光","湿気放置","圧縮"],
+correct:[0],
+explanation:"虫食い対策が重要です。"
+},
+
+{
+category:"お手入れ",
+type:"multiple",
+question:"洗濯表示確認が重要な理由は？",
+choices:["縮み防止","色落ち防止","長持ち","関係ない"],
+correct:[0,1,2],
+explanation:"正しいケアで製品寿命が伸びます。"
+},
+
+{
+category:"お手入れ",
+type:"single",
+question:"靴下を長持ちさせる方法は？",
+choices:["ネット使用","乾燥機高温","漂白","雑に洗う"],
+correct:[0],
+explanation:"生地への負担を減らせます。"
+},
+
+{
+category:"接客知識",
+type:"single",
+question:"お客様が迷っている時は？",
+choices:["用途を聞く","急かす","放置","値引き連呼"],
+correct:[0],
+explanation:"使用シーンを聞くと提案しやすくなります。"
+},
+
+{
+category:"素材知識",
+type:"single",
+question:"天然素材の魅力は？",
+choices:["経年変化を楽しめる","全く劣化しない","完全防水","無臭"],
+correct:[0],
+explanation:"天然素材ならではの風合いがあります。"
+},
+
+{
+category:"接客知識",
+type:"single",
+question:"おすすめ提案の基本は？",
+choices:["相手に合わせる","全員同じ","高額優先","売りたい物優先"],
+correct:[0],
+explanation:"お客様ごとの提案が重要です。"
+}
+
 ];
