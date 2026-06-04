@@ -3,149 +3,304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hummingbirdクイズ</title>
-
+<title>Hummingbird商品知識クイズ</title>
 <style>
 body{
-font-family:sans-serif;
-background:#f5efe6;
-padding:20px;
-max-width:600px;
-margin:auto;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:#f4eee5;
+  margin:0;
+  padding:20px;
+  color:#2b2118;
 }
-
 .card{
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
+  max-width:650px;
+  margin:30px auto;
+  background:#fffaf3;
+  padding:24px;
+  border-radius:22px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
 }
-
 h1{
-text-align:center;
+  text-align:center;
+  font-size:30px;
+  margin-bottom:10px;
 }
-
+.sub{
+  text-align:center;
+  color:#7b6a58;
+  margin-bottom:24px;
+}
+input{
+  width:100%;
+  padding:14px;
+  font-size:16px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  margin-bottom:14px;
+}
 button{
-display:block;
-width:100%;
-margin:10px 0;
-padding:15px;
-border:none;
-border-radius:10px;
-background:#8b6f47;
-color:white;
-font-size:16px;
+  width:100%;
+  padding:15px;
+  margin:9px 0;
+  border:0;
+  border-radius:14px;
+  background:#8b6f47;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
 }
-
-button:hover{
-opacity:.9;
+.choice{
+  background:#fff;
+  color:#2b2118;
+  border:1px solid #ddd;
 }
-
-#result{
-font-size:24px;
-font-weight:bold;
-text-align:center;
-margin-top:20px;
+.correct{
+  background:#dff3e6!important;
+  color:#1f6b3f!important;
+}
+.wrong{
+  background:#ffe2dc!important;
+  color:#a83222!important;
+}
+.explain{
+  margin-top:15px;
+  padding:14px;
+  background:#f0eadf;
+  border-radius:12px;
+  line-height:1.7;
+}
+.score{
+  text-align:center;
+  font-size:38px;
+  font-weight:bold;
+  margin:20px 0;
+}
+.rank{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+}
+.small{
+  color:#7b6a58;
+  font-size:14px;
+  text-align:center;
 }
 </style>
-
 </head>
 <body>
 
 <div class="card">
+  <h1>Hummingbird<br>商品知識クイズ</h1>
+  <p class="sub">素材・接客・お手入れを確認しよう</p>
 
-<h1>Hummingbird商品知識クイズ</h1>
+  <div id="start">
+    <input id="name" placeholder="スタッフ名を入力">
+    <button onclick="startQuiz()">クイズ開始</button>
+    <p class="small">全20問・4択・最後に点数が出ます</p>
+  </div>
 
-<div id="quiz"></div>
-
-<div id="result"></div>
-
+  <div id="quiz" style="display:none;"></div>
+  <div id="result"></div>
 </div>
 
 <script>
-
 const questions = [
-
 {
-q:"リネンの特徴は？",
-a:[
-"吸湿性が高い",
-"防水素材",
-"化学繊維",
-"革素材"
-],
-correct:0
+q:"リネン素材の特徴として正しいものは？",
+a:["吸湿・発散性があり、さらっとしやすい","完全防水である","化学繊維である","真冬専用素材である"],
+correct:0,
+exp:"リネンは吸湿・発散性に優れ、蒸れにくく夏の接客トークに使いやすい素材です。"
 },
-
 {
-q:"ギザコットンは？",
-a:[
-"高級綿",
-"羊毛",
-"麻",
-"ナイロン"
-],
-correct:0
+q:"リネン商品をおすすめしやすい季節は？",
+a:["春夏","真冬のみ","梅雨以外","季節に関係なく説明できない"],
+correct:0,
+exp:"春夏や梅雨時期は、さらっとした肌触りや蒸れにくさを伝えやすいです。"
 },
-
 {
-q:"ストレスフリーソックスの特徴は？",
-a:[
-"ゴムを極力使わない履き心地",
-"防水",
-"安全靴",
-"厚底"
-],
-correct:0
+q:"ギザコットンの説明として近いものは？",
+a:["上質なエジプト綿","羊毛の一種","麻の一種","合成皮革"],
+correct:0,
+exp:"ギザコットンは高級綿として、なめらかさ・上質感・希少性を伝えやすい素材です。"
+},
+{
+q:"スーピマコットンの特徴として伝えやすいものは？",
+a:["繊維が長く、なめらかで上質","水を完全にはじく","革のように硬い","洗濯できない"],
+correct:0,
+exp:"スーピマは高級綿のひとつで、肌触りの良さや光沢感を伝えやすいです。"
+},
+{
+q:"シルク素材の魅力として正しいものは？",
+a:["なめらかな肌触りと上品な光沢","完全防水","強いゴム素材","紙素材"],
+correct:0,
+exp:"シルクは肌あたりの良さ、上品な光沢、保湿性などが接客で伝えやすいポイントです。"
+},
+{
+q:"ウールを夏にも提案できる理由として近いものは？",
+a:["吸放湿性やにおいにくさがあるため","必ず冷房になるため","水を吸わないため","化学繊維だから"],
+correct:0,
+exp:"上質なウールは冬だけでなく、吸放湿性や防臭性を切り口に夏にも提案できます。"
+},
+{
+q:"ストレスフリーソックスの説明として近いものは？",
+a:["締めつけにくい履き心地を重視した靴下","防水靴下","登山専用靴下","使い捨て靴下"],
+correct:0,
+exp:"締めつけ感の少なさや、日常で楽に履けることを伝えると分かりやすいです。"
+},
+{
+q:"天然素材商品の接客で大切なことは？",
+a:["素材の良さと取り扱い注意をセットで伝える","必ず縮まないと言う","全部乾燥機OKと言う","安さだけを強調する"],
+correct:0,
+exp:"天然素材は魅力が大きい一方、洗濯や摩擦などの注意も伝えると信頼感が出ます。"
+},
+{
+q:"洗濯後に靴下が少し縮んだ時の案内として自然なのは？",
+a:["干す前に形を整えるとよい","強くねじるとよい","高温乾燥機にかける","水に浸けっぱなしにする"],
+correct:0,
+exp:"洗濯後に軽く形を整えて干す案内は、天然素材や編み物系の商品で使いやすいです。"
+},
+{
+q:"乾燥機について、天然素材商品で基本的に伝えやすい注意は？",
+a:["縮みや風合い変化の可能性がある","必ず新品以上になる","すべて推奨","色が必ず濃くなる"],
+correct:0,
+exp:"乾燥機は縮みや風合い変化の原因になることがあるため、注意点として伝えやすいです。"
+},
+{
+q:"接客の最初の一言として自然なのは？",
+a:["こちら日本製の天然素材で、肌あたりが良いシリーズです","買わないなら触らないでください","それ高いですよ","全部同じです"],
+correct:0,
+exp:"短く価値を伝えると、価格の理由やお店の世界観が伝わりやすくなります。"
+},
+{
+q:"高価格帯の商品を説明するときに大切なことは？",
+a:["素材・作り・背景を簡潔に伝える","値段だけ強調する","説明しない","安物と同じと言う"],
+correct:0,
+exp:"価格の理由を素材や作りで伝えると、お客様が納得しやすくなります。"
+},
+{
+q:"海外のお客様に伝えやすいキーワードは？",
+a:["Made in Japan / Natural material / Quality","Cheap only","No touch only","Same as all"],
+correct:0,
+exp:"海外のお客様には、日本製・天然素材・品質を短く伝えると価値が伝わりやすいです。"
+},
+{
+q:"帽子など繊細な商品への注意表現として良いものは？",
+a:["繊細な作品のため、やさしくお取り扱いください","触るな","壊したら買ってください","見るだけにしてください"],
+correct:0,
+exp:"理由を添えてやわらかく伝えると、角が立ちにくいです。"
+},
+{
+q:"お客様が商品を触ってすぐ帰りそうな時の対応は？",
+a:["短く商品の価値を伝える","無言で見る","強く注意する","追いかける"],
+correct:0,
+exp:"最初の数秒で価値を伝えることで、興味を持ってもらえる可能性が上がります。"
+},
+{
+q:"『この靴下、何がいいの？』と聞かれた時の答えとして自然なのは？",
+a:["素材と履き心地にこだわっていて、締めつけにくいです","普通です","高いだけです","説明できません"],
+correct:0,
+exp:"素材と体感メリットをセットで伝えると、お客様に伝わりやすいです。"
+},
+{
+q:"シルク小物の提案で伝えやすいポイントは？",
+a:["肌あたりのやさしさ","防水性能","重さ","硬さ"],
+correct:0,
+exp:"シルクは肌あたりのやさしさや上質感を伝えると魅力が伝わりやすいです。"
+},
+{
+q:"梅雨時期におすすめしやすい素材は？",
+a:["リネン","防弾素材","合成皮革のみ","真冬用ダウン"],
+correct:0,
+exp:"リネンは蒸れにくさやさらっと感を伝えやすく、梅雨や夏におすすめしやすいです。"
+},
+{
+q:"商品説明で避けた方がよい言い方は？",
+a:["絶対に縮みません","天然素材です","日本製です","肌あたりが良いです"],
+correct:0,
+exp:"天然素材は縮みや風合い変化の可能性があるため、断定しすぎる表現は避けた方が安全です。"
+},
+{
+q:"Hummingbirdらしい接客として近いものは？",
+a:["素材の良さを自然に伝え、丁寧に提案する","安売りだけを強調する","説明せずに放置する","強引に買わせる"],
+correct:0,
+exp:"上質な天然素材の価値を、押しつけず丁寧に伝える接客が合います。"
 }
-
 ];
 
-let current=0;
-let score=0;
+let current = 0;
+let score = 0;
+let staffName = "";
+
+function shuffle(array){
+  for(let i=array.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
+  }
+}
+
+shuffle(questions);
+
+function startQuiz(){
+  staffName = document.getElementById("name").value || "スタッフ";
+  document.getElementById("start").style.display="none";
+  document.getElementById("quiz").style.display="block";
+  showQuestion();
+}
 
 function showQuestion(){
-
-if(current>=questions.length){
-
-document.getElementById("quiz").innerHTML="";
-
-document.getElementById("result").innerHTML=
-"結果："+score+" / "+questions.length;
-
-return;
+  const q = questions[current];
+  let html = `<p class="small">第 ${current+1} 問 / ${questions.length} 問</p>`;
+  html += `<h2>${q.q}</h2>`;
+  q.a.forEach((choice,index)=>{
+    html += `<button class="choice" onclick="answer(${index}, this)">${choice}</button>`;
+  });
+  document.getElementById("quiz").innerHTML = html;
 }
 
-const q=questions[current];
+function answer(index,btn){
+  const q = questions[current];
+  const buttons = document.querySelectorAll(".choice");
+  buttons.forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.correct){ b.classList.add("correct"); }
+  });
 
-let html="<h2>"+q.q+"</h2>";
+  if(index===q.correct){
+    score++;
+  }else{
+    btn.classList.add("wrong");
+  }
 
-q.a.forEach((choice,index)=>{
-
-html+=`
-<button onclick="answer(${index})">
-${choice}
-</button>
-`;
-
-});
-
-document.getElementById("quiz").innerHTML=html;
+  const explain = document.createElement("div");
+  explain.className="explain";
+  explain.innerHTML = q.exp + `<br><br><button onclick="nextQuestion()">次へ</button>`;
+  document.getElementById("quiz").appendChild(explain);
 }
 
-function answer(index){
-
-if(index===questions[current].correct){
-score++;
+function nextQuestion(){
+  current++;
+  if(current >= questions.length){
+    showResult();
+  }else{
+    showQuestion();
+  }
 }
 
-current++;
+function showResult(){
+  const percent = Math.round(score / questions.length * 100);
+  let rank = "見習いスタッフ";
+  if(percent >= 90) rank = "Hummingbirdマイスター";
+  else if(percent >= 75) rank = "素材アドバイザー";
+  else if(percent >= 60) rank = "接客チャレンジャー";
 
-showQuestion();
+  document.getElementById("quiz").style.display="none";
+  document.getElementById("result").innerHTML = `
+    <div class="score">${percent}点</div>
+    <div class="rank">${rank}</div>
+    <p class="sub">${staffName}さんの結果：${score} / ${questions.length} 問 正解</p>
+    <button onclick="location.reload()">もう一回やる</button>
+  `;
 }
-
-showQuestion();
-
 </script>
 
 </body>
