@@ -6,7 +6,21 @@
 
 
 <title>Hummingbird商品知識クイズ</title>
-<script src="questions.js"></script>
+<script src="questions-material.js"></script>
+<script src="questions-care.js"></script>
+<script src="questions-customer.js"></script>
+<script src="questions-global.js"></script>
+<script src="questions-product.js"></script>
+
+<script>
+const QUIZ_QUESTIONS = [
+  ...QUESTIONS_MATERIAL,
+  ...QUESTIONS_CARE,
+  ...QUESTIONS_CUSTOMER,
+  ...QUESTIONS_GLOBAL,
+  ...QUESTIONS_PRODUCT
+];
+</script>
 
 <style>
 body{
