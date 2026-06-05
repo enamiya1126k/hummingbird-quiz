@@ -1,5 +1,4 @@
 const QUESTIONS_PRODUCT = [
-
 {
 category:"商品知識",
 type:"single",
