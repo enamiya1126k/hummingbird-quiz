@@ -143,9 +143,16 @@ input[type="text"]{
 
 <div id="resultScreen" class="hidden">
   <div class="result">クイズ終了！</div>
+
   <p id="scoreText" class="small"></p>
+
   <div id="categoryScores" class="scoreBox"></div>
-  <button onclick="location.reload()">もう一度挑戦</button>
+
+  <div id="bonusGame"></div>
+
+  <button onclick="location.reload()">
+    もう一度挑戦
+  </button>
 </div>
 
 </div>
@@ -397,6 +404,98 @@ function finishQuiz(){
   });
 
   document.getElementById("categoryScores").innerHTML = html;
+  if(percent === 100){
+  createBonusGame();
+}
+}
+
+let bonusOpened = false;
+
+function createBonusGame(){
+
+  const area =
+    document.getElementById("bonusGame");
+
+  const cards =
+    Array(9).fill("😭はずれ");
+
+  const winIndex =
+    Math.floor(Math.random() * 9);
+
+  cards[winIndex] =
+    "🎁ジュース奢られ券";
+
+  let html = `
+  <div style="
+    margin-top:20px;
+    background:#fffaf3;
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+  ">
+
+  <h2>
+  🏆100点達成ボーナス🏆
+  </h2>
+
+  <p>
+  カードを1枚選んでください
+  </p>
+
+  <div
+  style="
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  ">
+  `;
+
+  cards.forEach((card,index)=>{
+
+    html += `
+      <button
+      id="card${index}"
+      onclick="openBonusCard(${index},'${card}')"
+      style="
+      height:80px;
+      font-size:28px;
+      ">
+      🟨
+      </button>
+    `;
+  });
+
+  html += `
+    </div>
+    </div>
+  `;
+
+  area.innerHTML = html;
+}
+
+function openBonusCard(index,result){
+
+  if(bonusOpened) return;
+
+  bonusOpened = true;
+
+  document.getElementById(
+    `card${index}`
+  ).innerHTML = result;
+
+  if(result.includes("🎁")){
+
+    alert(
+      "🎉おめでとう！\nジュース奢られ券獲得！"
+    );
+
+  }else{
+
+    alert(
+      "😭ハズレ！\nまた100点目指そう！"
+    );
+
+  }
 }
 
 </script>
