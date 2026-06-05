@@ -416,14 +416,24 @@ function createBonusGame(){
   const area =
     document.getElementById("bonusGame");
 
-  const cards =
-    Array(9).fill("😭はずれ");
+const prizes = [
+  "🎁ジュース",
+  "🎁アイス",
+  "🎁お菓子",
+  "🎁店長の笑顔"
+];
 
-  const winIndex =
-    Math.floor(Math.random() * 9);
+const cards =
+  Array(9).fill("😭はずれ");
 
-  cards[winIndex] =
-    "🎁ジュース奢られ券";
+const winIndex =
+  Math.floor(Math.random() * 9);
+
+const prizeIndex =
+  Math.floor(Math.random() * prizes.length);
+
+cards[winIndex] =
+  prizes[prizeIndex];
 
   let html = `
   <div style="
@@ -483,11 +493,11 @@ function openBonusCard(index,result){
     `card${index}`
   ).innerHTML = result;
 
-  if(result.includes("🎁")){
+if(result.includes("🎁")){
 
-    alert(
-      "🎉おめでとう！\nジュース奢られ券獲得！"
-    );
+  alert(
+    `🎉おめでとう！\n${result}獲得！`
+  );
 
   }else{
 
