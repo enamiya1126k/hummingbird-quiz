@@ -1,5 +1,4 @@
 const QUESTIONS_GLOBAL = [
-
 {
 category:"海外対応",
 type:"single",
