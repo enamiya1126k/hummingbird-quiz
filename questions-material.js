@@ -1,5 +1,4 @@
 const QUESTIONS_MATERIAL = [
-
 {
 category:“素材知識”,
 type:“single”,
