@@ -1,5 +1,4 @@
 const QUESTIONS_CUSTOMER = [
-
 {
 category:"接客知識",
 type:"single",
