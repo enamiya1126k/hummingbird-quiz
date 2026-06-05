@@ -1,2 +1,2 @@
-const QUESTIONS_MATERIAL = [
+const QUESTIONS_CARE = [
 
