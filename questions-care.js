@@ -1,5 +1,4 @@
 const QUESTIONS_CARE = [
-
 {
 category:"お手入れ",
 type:"single",
