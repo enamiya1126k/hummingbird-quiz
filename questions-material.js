@@ -1,1 +1,2 @@
-あ
+const QUESTIONS_MATERIAL = [
+
