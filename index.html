@@ -524,37 +524,36 @@ else{
     `;
   });
 
+
   document.getElementById("categoryScores").innerHTML = html;
+
   if(percent === 100){
-  createBonusGame();
-}
+    createBonusGame();
+  }
 }
 
 let bonusOpened = false;
 
 function createBonusGame(){
 
+  bonusOpened = false;
+
   const area =
     document.getElementById("bonusGame");
 
-const prizes = [
-  "🎁ジュース",
-  "🎁アイス",
-  "🎁お菓子",
-  "🎁店長の笑顔"
-];
+  const cards = [
+    "🎁ジュース",
+    "🍬飴",
+    "🍬飴",
+    "🎁店長の笑顔",
+    "☕コーヒー系",
+    "🍬飴",
+    "😭はずれ",
+    "😭はずれ",
+    "😭はずれ"
+  ];
 
-const cards =
-  Array(9).fill("😭はずれ");
-
-const winIndex =
-  Math.floor(Math.random() * 9);
-
-const prizeIndex =
-  Math.floor(Math.random() * prizes.length);
-
-cards[winIndex] =
-  prizes[prizeIndex];
+  cards.sort(() => Math.random() - 0.5);
 
   let html = `
   <div style="
@@ -614,11 +613,17 @@ function openBonusCard(index,result){
     `card${index}`
   ).innerHTML = result;
 
-if(result.includes("🎁")){
+  if(result === "🎁店長の笑顔"){
 
-  alert(
-    `🎉おめでとう！\n${result}獲得！`
-  );
+    alert(
+      "😊おめでとう！\n店長の笑顔を獲得しました！\n※換金不可・返品不可"
+    );
+
+  }else if(!result.includes("😭")){
+
+    alert(
+      `🎉おめでとう！\n${result}獲得！`
+    );
 
   }else{
 
