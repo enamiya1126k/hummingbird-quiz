@@ -345,19 +345,90 @@ function finishQuiz(){
   let rank = "🌱 見習いスタッフ";
   let comment = "まずは素材の基礎から復習しよう！";
 
-  if(percent >= 90){
-    rank = "👑 Hummingbirdマイスター";
-    comment = "完璧レベル！スタッフ教育も任せられる！";
-  }else if(percent >= 75){
-    rank = "✨ 天然素材ソムリエ";
-    comment = "かなり良い感じ！接客でも自信を持って説明できる！";
-  }else if(percent >= 60){
-    rank = "🧵 素材アドバイザー";
-    comment = "基礎はOK！あと少しでかなり安定する！";
-  }else if(percent >= 40){
-    rank = "🔰 接客チャレンジャー";
-    comment = "伸びしろあり！解説を見ながら復習しよう！";
-  }
+if(percent === 100){
+  rank = "👑 神鳥（ゴッドハミングバード）";
+  comment = "全問正解。もはや店長を教育する側。ジュースチャレンジ権獲得。";
+}
+else if(percent >= 95){
+  rank = "🏆 Hummingbirdマスター";
+  comment = "ほぼ完璧。変態問題まで理解している。";
+}
+else if(percent >= 90){
+  rank = "✨ 天然素材の申し子";
+  comment = "素材・接客・商品知識ともにかなり強い。";
+}
+else if(percent >= 85){
+  rank = "🦉 素材オタク";
+  comment = "休憩中に繊維長の話を始めるタイプ。";
+}
+else if(percent >= 80){
+  rank = "🎩 上級アドバイザー";
+  comment = "お客様にも自信を持って説明できるレベル。";
+}
+else if(percent >= 75){
+  rank = "🌿 天然素材ソムリエ";
+  comment = "かなり良い感じ。あと一歩で上級者。";
+}
+else if(percent >= 70){
+  rank = "🧦 靴下研究員";
+  comment = "知識はある。だが変態領域にはまだ遠い。";
+}
+else if(percent >= 65){
+  rank = "🧵 素材アドバイザー";
+  comment = "基礎は身についている。解説を読めばもっと伸びる。";
+}
+else if(percent >= 60){
+  rank = "📚 勉強熱心スタッフ";
+  comment = "やる気は感じる。まだ覚醒前。";
+}
+else if(percent >= 55){
+  rank = "🐣 接客訓練生";
+  comment = "知識より愛嬌で乗り切っている可能性あり。";
+}
+else if(percent >= 50){
+  rank = "🌱 見習いスタッフ";
+  comment = "まずは素材タグを読むところから始めよう。";
+}
+else if(percent >= 45){
+  rank = "🤔 雰囲気接客職人";
+  comment = "説明はふわっとしているが、なぜか売れる時がある。";
+}
+else if(percent >= 40){
+  rank = "🚨 商品説明事故予備軍";
+  comment = "その説明、本当に合ってる？お客様が詳しいと危険。";
+}
+else if(percent >= 35){
+  rank = "📖 ラベル読み係";
+  comment = "接客中にタグを確認したくなるレベル。";
+}
+else if(percent >= 30){
+  rank = "🥔 通りすがりのお客様";
+  comment = "まだスタッフ側ではなく、お客様側の知識量。";
+}
+else if(percent >= 25){
+  rank = "🫥 店内で迷子";
+  comment = "たぶん今どの商品説明してるか途中で忘れる。";
+}
+else if(percent >= 20){
+  rank = "🦆 ハミングバード新人研修1日目";
+  comment = "とりあえずリネンとウールの違いから復習しよう。";
+}
+else if(percent >= 15){
+  rank = "🧠 知識メモリ空き容量99%";
+  comment = "まだまだ新しい知識がたくさん入る。";
+}
+else if(percent >= 10){
+  rank = "🐟 商品知識ブラックホール";
+  comment = "覚えた知識が光の速さで吸い込まれている。";
+}
+else if(percent >= 5){
+  rank = "☠️ 素材界の都市伝説";
+  comment = "その回答はどこで覚えたんや。";
+}
+else{
+  rank = "💀 伝説級";
+  comment = "逆にここまで外す方が難しい。才能を感じる。";
+}
 
   document.getElementById("scoreText").innerHTML = `
     ${staffName}さんの結果<br><br>
