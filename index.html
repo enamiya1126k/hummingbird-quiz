@@ -236,18 +236,6 @@ function startQuiz(){
   showQuestion();
 }
 
-  categoryStats = {};
-  quiz.forEach(q => {
-    if(!categoryStats[q.category]){
-      categoryStats[q.category] = { correct:0, total:0 };
-    }
-  });
-
-  document.getElementById("startScreen").classList.add("hidden");
-  document.getElementById("quizScreen").classList.remove("hidden");
-  showQuestion();
-}
-
 function showQuestion(){
   answered = false;
   const q = quiz[current];
