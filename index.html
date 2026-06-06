@@ -189,79 +189,32 @@ function startQuiz(){
 
   quiz = [];
 
-  // 素材知識3問
-  const materialQuestions =
-    shuffle(
+  const quizConfig = {
+    "素材知識": 3,
+    "商品知識": 3,
+    "接客知識": 1,
+    "海外対応": 1,
+    "お手入れ": 2
+  };
+
+  Object.entries(quizConfig).forEach(([category, count]) => {
+
+    const categoryQuestions =
       QUIZ_QUESTIONS.filter(
-        q => q.category === "素材知識"
-      )
-    ).slice(0,3);
+        q => q.category === category
+      );
 
-  quiz.push(...materialQuestions);
-
-  // 商品知識3問
-  const productQuestions =
-    shuffle(
-      QUIZ_QUESTIONS.filter(
-        q => q.category === "商品知識"
-      )
-    ).slice(0,3);
-
-  quiz.push(...productQuestions);
-
-  // すでに選ばれた問題を除外
-  const usedQuestions =
-    [...materialQuestions, ...productQuestions];
-
-  // 残り1問は素材知識 or 商品知識から
-  const extraCore =
-    QUIZ_QUESTIONS.filter(
-      q =>
-        (
-          q.category === "素材知識" ||
-          q.category === "商品知識"
-        ) &&
-        !usedQuestions.includes(q)
+    quiz.push(
+      ...shuffle(categoryQuestions).slice(0, count)
     );
 
-  quiz.push(
-    ...shuffle(extraCore).slice(0,1)
-  );
+  });
 
-  // 接客知識1問
-  quiz.push(
-    ...shuffle(
-      QUIZ_QUESTIONS.filter(
-        q => q.category === "接客知識"
-      )
-    ).slice(0,1)
-  );
+  quiz = shuffle(quiz);
 
-  // 海外対応1問
-  quiz.push(
-    ...shuffle(
-      QUIZ_QUESTIONS.filter(
-        q => q.category === "海外対応"
-      )
-    ).slice(0,1)
-  );
-
-  // お手入れ1問
-  quiz.push(
-    ...shuffle(
-      QUIZ_QUESTIONS.filter(
-        q => q.category === "お手入れ"
-      )
-    ).slice(0,2)
-  );
-
-// 最後に全体をシャッフル
-quiz = shuffle(quiz);
-
-if(quiz.length === 0){
-  alert("問題が読み込めていません。questions-〇〇.js のどれかにエラーがある可能性があります。");
-  return;
-}
+  if(quiz.length !== 10){
+    alert("問題数：" + quiz.length + "問です。カテゴリ別の問題数を確認してください。");
+  }
 
   categoryStats = {};
 
@@ -277,6 +230,10 @@ if(quiz.length === 0){
     }
 
   });
+
+  current = 0;
+  score = 0;
+  answered = false;
 
   document.getElementById("startScreen")
     .classList.add("hidden");
