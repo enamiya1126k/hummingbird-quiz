@@ -166,13 +166,75 @@ let answered = false;
 
 let categoryStats = {};
 
-function shuffle(arr){
-  return [...arr].sort(() => Math.random() - 0.5);
+function shuffle(array){
+
+  const arr = [...array];
+
+  for(let i = arr.length - 1; i > 0; i--){
+
+    const j =
+      Math.floor(Math.random() * (i + 1));
+
+    [arr[i], arr[j]]
+      = [arr[j], arr[i]];
+  }
+
+  return arr;
 }
 
 function startQuiz(){
-  staffName = document.getElementById("staffName").value || "スタッフ";
-  quiz = shuffle(QUIZ_QUESTIONS).slice(0,10);
+
+  staffName =
+    document.getElementById("staffName").value || "スタッフ";
+
+  const categories = [
+    "素材知識",
+    "商品知識",
+    "接客知識",
+    "海外対応",
+    "お手入れ"
+  ];
+
+  quiz = [];
+
+  categories.forEach(category => {
+
+    const categoryQuestions =
+      QUIZ_QUESTIONS.filter(
+        q => q.category === category
+      );
+
+    quiz.push(
+      ...shuffle(categoryQuestions).slice(0,2)
+    );
+
+  });
+
+  quiz = shuffle(quiz);
+
+  categoryStats = {};
+
+  quiz.forEach(q => {
+
+    if(!categoryStats[q.category]){
+
+      categoryStats[q.category] = {
+        correct:0,
+        total:0
+      };
+
+    }
+
+  });
+
+  document.getElementById("startScreen")
+    .classList.add("hidden");
+
+  document.getElementById("quizScreen")
+    .classList.remove("hidden");
+
+  showQuestion();
+}
 
   categoryStats = {};
   quiz.forEach(q => {
