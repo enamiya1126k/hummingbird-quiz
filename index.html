@@ -14,11 +14,11 @@
 
 <script>
 const QUIZ_QUESTIONS = [
-  ...QUESTIONS_MATERIAL,
-  ...QUESTIONS_CARE,
-  ...QUESTIONS_CUSTOMER,
-  ...QUESTIONS_GLOBAL,
-  ...QUESTIONS_PRODUCT
+  ...(typeof QUESTIONS_MATERIAL !== "undefined" ? QUESTIONS_MATERIAL : []),
+  ...(typeof QUESTIONS_CARE !== "undefined" ? QUESTIONS_CARE : []),
+  ...(typeof QUESTIONS_CUSTOMER !== "undefined" ? QUESTIONS_CUSTOMER : []),
+  ...(typeof QUESTIONS_GLOBAL !== "undefined" ? QUESTIONS_GLOBAL : []),
+  ...(typeof QUESTIONS_PRODUCT !== "undefined" ? QUESTIONS_PRODUCT : [])
 ];
 </script>
 
@@ -255,8 +255,13 @@ function startQuiz(){
     ).slice(0,1)
   );
 
-  // 最後に全体をシャッフル
-  quiz = shuffle(quiz);
+// 最後に全体をシャッフル
+quiz = shuffle(quiz);
+
+if(quiz.length === 0){
+  alert("問題が読み込めていません。questions-〇〇.js のどれかにエラーがある可能性があります。");
+  return;
+}
 
   categoryStats = {};
 
