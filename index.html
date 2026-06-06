@@ -187,9 +187,12 @@ function startQuiz(){
   staffName =
     document.getElementById("staffName").value || "スタッフ";
 
+  current = 0;
+  score = 0;
+  answered = false;
   quiz = [];
 
-  const quizConfig = {
+  const categoryConfig = {
     "素材知識": 3,
     "商品知識": 3,
     "接客知識": 1,
@@ -197,23 +200,37 @@ function startQuiz(){
     "お手入れ": 2
   };
 
-  Object.entries(quizConfig).forEach(([category, count]) => {
+  Object.entries(categoryConfig).forEach(([category,count]) => {
 
     const categoryQuestions =
+      shuffle(
+        QUIZ_QUESTIONS.filter(
+          q => q.category === category
+        )
+      ).slice(0,count);
+
+    quiz.push(...categoryQuestions);
+
+  });
+
+  if(quiz.length < 10){
+
+    const restQuestions =
       QUIZ_QUESTIONS.filter(
-        q => q.category === category
+        q => !quiz.includes(q)
       );
 
     quiz.push(
-      ...shuffle(categoryQuestions).slice(0, count)
+      ...shuffle(restQuestions).slice(0, 10 - quiz.length)
     );
 
-  });
+  }
 
   quiz = shuffle(quiz);
 
   if(quiz.length !== 10){
-    alert("問題数：" + quiz.length + "問です。カテゴリ別の問題数を確認してください。");
+    alert("問題数：" + quiz.length + "問です。問題ファイルを確認してください。");
+    return;
   }
 
   categoryStats = {};
@@ -231,17 +248,11 @@ function startQuiz(){
 
   });
 
-  current = 0;
-  score = 0;
-  answered = false;
-
   document.getElementById("startScreen")
     .classList.add("hidden");
 
   document.getElementById("quizScreen")
     .classList.remove("hidden");
-
-  alert("最終問題数：" + quiz.length);
 
   showQuestion();
 }
