@@ -187,29 +187,75 @@ function startQuiz(){
   staffName =
     document.getElementById("staffName").value || "スタッフ";
 
-  const categories = [
-    "素材知識",
-    "商品知識",
-    "接客知識",
-    "海外対応",
-    "お手入れ"
-  ];
-
   quiz = [];
 
-  categories.forEach(category => {
-
-    const categoryQuestions =
+  // 素材知識3問
+  const materialQuestions =
+    shuffle(
       QUIZ_QUESTIONS.filter(
-        q => q.category === category
-      );
+        q => q.category === "素材知識"
+      )
+    ).slice(0,3);
 
-    quiz.push(
-      ...shuffle(categoryQuestions).slice(0,2)
+  quiz.push(...materialQuestions);
+
+  // 商品知識3問
+  const productQuestions =
+    shuffle(
+      QUIZ_QUESTIONS.filter(
+        q => q.category === "商品知識"
+      )
+    ).slice(0,3);
+
+  quiz.push(...productQuestions);
+
+  // すでに選ばれた問題を除外
+  const usedQuestions =
+    [...materialQuestions, ...productQuestions];
+
+  // 残り1問は素材知識 or 商品知識から
+  const extraCore =
+    QUIZ_QUESTIONS.filter(
+      q =>
+        (
+          q.category === "素材知識" ||
+          q.category === "商品知識"
+        ) &&
+        !usedQuestions.includes(q)
     );
 
-  });
+  quiz.push(
+    ...shuffle(extraCore).slice(0,1)
+  );
 
+  // 接客知識1問
+  quiz.push(
+    ...shuffle(
+      QUIZ_QUESTIONS.filter(
+        q => q.category === "接客知識"
+      )
+    ).slice(0,1)
+  );
+
+  // 海外対応1問
+  quiz.push(
+    ...shuffle(
+      QUIZ_QUESTIONS.filter(
+        q => q.category === "海外対応"
+      )
+    ).slice(0,1)
+  );
+
+  // お手入れ1問
+  quiz.push(
+    ...shuffle(
+      QUIZ_QUESTIONS.filter(
+        q => q.category === "お手入れ"
+      )
+    ).slice(0,1)
+  );
+
+  // 最後に全体をシャッフル
   quiz = shuffle(quiz);
 
   categoryStats = {};
